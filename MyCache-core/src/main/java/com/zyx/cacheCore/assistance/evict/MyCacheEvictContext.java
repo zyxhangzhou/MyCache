@@ -1,17 +1,16 @@
 package com.zyx.cacheCore.assistance.evict;
 
+import cn.hutool.cache.Cache;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCacheEvictContext;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import com.zyx.cacheCore.core.MyCache;
 
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/4 16:13
  * @Description
  */
-@Setter
-@Accessors(chain = true)
+
 public class MyCacheEvictContext<K, V> implements IMyCacheEvictContext<K, V> {
 
     /**
@@ -34,14 +33,29 @@ public class MyCacheEvictContext<K, V> implements IMyCacheEvictContext<K, V> {
         return key;
     }
 
+    public MyCacheEvictContext<K, V> key(K key) {
+        this.key = key;
+        return this;
+    }
+
     @Override
     public IMyCache<K, V> cache() {
         return cache;
     }
 
+    public MyCacheEvictContext<K, V> cache(MyCache<K, V> cache) {
+        this.cache = cache;
+        return this;
+    }
+
     @Override
     public int size() {
         return size;
+    }
+
+    public MyCacheEvictContext<K, V> size(int size) {
+        this.size = size;
+        return this;
     }
 
 }

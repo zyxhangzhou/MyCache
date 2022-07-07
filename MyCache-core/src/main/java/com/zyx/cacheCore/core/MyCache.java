@@ -2,9 +2,12 @@ package com.zyx.cacheCore.core;
 
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCacheEvict;
+import com.zyx.cacheApi.api.IMyCacheExpire;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvictContext;
+import com.zyx.cacheCore.assistance.expire.MyCacheExpire;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,6 +29,8 @@ public class MyCache<K, V> implements IMyCache<K, V> {
 
     private IMyCacheEvict<K, V> evict;
 
+    private IMyCacheExpire<K, V> expire;
+
     public MyCache() {
     }
 
@@ -44,6 +49,7 @@ public class MyCache<K, V> implements IMyCache<K, V> {
         this.maxSize = maxSize;
         return this;
     }
+
     public MyCache<K, V> evict(IMyCacheEvict<K, V> cacheEvict) {
         this.evict = cacheEvict;
         return this;
@@ -72,15 +78,15 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     @Override
     public V get(Object key) {
         K key1 = (K) key;
+        this.expire.refreshExpire(Collections.singletonList(key1));
         return map.get(key1);
     }
 
     @Override
     public V put(K key, V value) {
         MyCacheEvictContext<K, V> context = new MyCacheEvictContext<>();
-        context.setKey(key).setSize(maxSize).setCache(this);
+        context.key(key).size(maxSize).cache(this);
         evict.evict(context);
-
         return map.put(key, value);
     }
 
@@ -112,5 +118,22 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     @Override
     public Set<Entry<K, V>> entrySet() {
         return map.entrySet();
+    }
+
+    @Override
+    public IMyCache<K, V> expire(K key, long timeInMills) {
+        long expireTime = System.currentTimeMillis() + timeInMills;
+        this.expireAt(key, expireTime);
+        return this;
+    }
+
+    @Override
+    public IMyCache<K, V> expireAt(K key, long timeInMills) {
+        this.expire.expire(key, timeInMills);
+        return this;
+    }
+
+    public void init() {
+        this.expire = new MyCacheExpire<>(this);
     }
 }

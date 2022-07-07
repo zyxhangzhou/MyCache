@@ -1,5 +1,6 @@
 package com.zyx.cacheCore.bootstrap;
 
+import cn.hutool.cache.Cache;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCacheEvict;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvictStrategy;
@@ -46,10 +47,10 @@ public class MyCacheBootstrap<K, V> {
     }
 
     public IMyCache<K, V> build() {
-        MyCacheContext<K, V> context = new MyCacheContext<>();
-        context.cacheEvict(evict).map(map).size(size);
-        //MyCache<K, V> cache = new MyCache<>(context);
-        return new MyCache<>(context);
+        MyCache<K, V> cache = new MyCache<>();
+        cache.map(map).evict(evict).maxSize(size);
+        cache.init();
+        return cache;
     }
 
 }

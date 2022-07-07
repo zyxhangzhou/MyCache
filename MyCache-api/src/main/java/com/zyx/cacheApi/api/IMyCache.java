@@ -10,4 +10,7 @@ import java.util.Map;
 public interface IMyCache<K, V> extends Map<K, V> {
 
 
+    IMyCache<K, V> expire(final K key, final long timeInMills);
+
+    IMyCache<K, V> expireAt(final K key, final long timeInMills);
 }
