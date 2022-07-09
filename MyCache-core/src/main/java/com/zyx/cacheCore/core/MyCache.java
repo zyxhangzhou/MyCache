@@ -84,6 +84,7 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public V get(Object key) {
         K key1 = (K) key;
         this.expire.refreshExpire(Collections.singletonList(key1));

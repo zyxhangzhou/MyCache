@@ -2,6 +2,7 @@ package com.zyx.cacheTest.bootstrap;
 
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCachePersist;
+import com.zyx.cacheCore.assistance.load.MyCacheLoads;
 import com.zyx.cacheCore.assistance.persist.MyCachePersists;
 import com.zyx.cacheCore.bootstrap.MyCacheBootstrap;
 import com.zyx.cacheTest.load.MyCacheLoad;
@@ -51,6 +52,14 @@ public class CacheBootstrapTest {
         Assert.assertEquals(2, cache.size());
         System.out.println(cache.entrySet());
         TimeUnit.SECONDS.sleep(5);
+    }
+    @Test
+    public void loadJsonTest() {
+        IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
+                .load(MyCacheLoads.json("./1.rdb"))
+                .build();
+        Assert.assertEquals(2, cache.size());
+        System.out.println(cache.entrySet());
     }
 }
 

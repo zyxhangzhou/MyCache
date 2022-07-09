@@ -29,11 +29,11 @@ public class InnerMyCachePersist<K, V> {
     private void init() {
         EXECUTOR_SERVICE.scheduleAtFixedRate(() -> {
             try {
-                log.info("开始持久化缓存信息");
+                log.info("starting to persist");
                 persist.persist(cache);
-                log.info("完成持久化缓存信息");
+                log.info("persistence is done!");
             } catch (Exception exception) {
-                log.error("文件持久化异常", exception);
+                log.error("file persistence cause an exception!", exception);
             }
         }, persist.delay(), persist.period(), persist.timeUnit());
     }
