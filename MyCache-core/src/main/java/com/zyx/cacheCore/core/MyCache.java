@@ -1,10 +1,10 @@
 package com.zyx.cacheCore.core;
 
-import com.zyx.cacheApi.api.IMyCache;
-import com.zyx.cacheApi.api.IMyCacheEvict;
-import com.zyx.cacheApi.api.IMyCacheExpire;
+import cn.hutool.cache.Cache;
+import com.zyx.cacheApi.api.*;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvictContext;
 import com.zyx.cacheCore.assistance.expire.MyCacheExpire;
+import com.zyx.cacheCore.assistance.persist.InnerMyCachePersist;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -31,6 +31,10 @@ public class MyCache<K, V> implements IMyCache<K, V> {
 
     private IMyCacheExpire<K, V> expire;
 
+    private IMyCacheLoad<K,V> load;
+
+    private IMyCachePersist<K,V> persist;
+
     public MyCache() {
     }
 
@@ -53,6 +57,10 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     public MyCache<K, V> evict(IMyCacheEvict<K, V> cacheEvict) {
         this.evict = cacheEvict;
         return this;
+    }
+
+    public void persist(IMyCachePersist<K, V> persist) {
+        this.persist = persist;
     }
 
     @Override
@@ -128,12 +136,37 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     }
 
     @Override
+    public IMyCacheExpire<K, V> expire() {
+        return this.expire;
+    }
+
+    @Override
     public IMyCache<K, V> expireAt(K key, long timeInMills) {
         this.expire.expire(key, timeInMills);
         return this;
     }
 
+    @Override
+    public IMyCacheLoad<K, V> load() {
+        return this.load;
+    }
+
+    @Override
+    public IMyCachePersist<K, V> persist() {
+        return this.persist;
+    }
+
+    public MyCache<K, V> load(IMyCacheLoad<K, V> load) {
+        this.load = load;
+        return this;
+    }
+
     public void init() {
         this.expire = new MyCacheExpire<>(this);
+        this.load.load(this);
+
+        if (null!=this.persist) {
+            new InnerMyCachePersist<>(this, persist);
+        }
     }
 }

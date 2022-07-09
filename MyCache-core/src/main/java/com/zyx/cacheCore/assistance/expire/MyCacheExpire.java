@@ -35,7 +35,7 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
     }
 
     private void init() {
-        EXECUTOR_SERVICE.scheduleAtFixedRate(new Thread(() -> {
+        EXECUTOR_SERVICE.scheduleAtFixedRate(() -> {
             if (MapUtil.isEmpty(expireMap)) return;
             int cnt = 0;
             for (Map.Entry<K, Long> entry : expireMap.entrySet()) {
@@ -43,7 +43,7 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
                 expireKey(entry.getKey(), entry.getValue());
                 ++cnt;
             }
-        }), 100, 100, TimeUnit.MILLISECONDS);
+        }, 100, 100, TimeUnit.MILLISECONDS);
     }
 
     private void expireKey(final K key, final Long expireAt) {
@@ -69,12 +69,12 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
     public void refreshExpire(Collection<K> keyList) {
         if (CollUtil.isEmpty(keyList)) return;
         // 判断大小，小的作为外循环。一般都是过期的 keys 比较小。
-        if(keyList.size() <= expireMap.size()) {
-            for(K key : keyList) {
+        if (keyList.size() <= expireMap.size()) {
+            for (K key : keyList) {
                 this.expireKey(key, expireMap.get(key));
             }
         } else {
-            for(Map.Entry<K, Long> entry : expireMap.entrySet()) {
+            for (Map.Entry<K, Long> entry : expireMap.entrySet()) {
                 this.expireKey(entry.getKey(), entry.getValue());
             }
         }
