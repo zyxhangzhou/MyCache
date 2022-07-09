@@ -1,5 +1,6 @@
 package com.zyx.cacheApi.api;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,4 +30,6 @@ public interface IMyCache<K, V> extends Map<K, V> {
     IMyCacheLoad<K,V> load();
 
     IMyCachePersist<K,V> persist();
+
+    List<IMyCacheRemoveListener<K,V>> removeListeners();
 }

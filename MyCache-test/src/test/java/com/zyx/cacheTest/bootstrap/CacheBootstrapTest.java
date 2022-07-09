@@ -1,10 +1,10 @@
 package com.zyx.cacheTest.bootstrap;
 
 import com.zyx.cacheApi.api.IMyCache;
-import com.zyx.cacheApi.api.IMyCachePersist;
 import com.zyx.cacheCore.assistance.load.MyCacheLoads;
 import com.zyx.cacheCore.assistance.persist.MyCachePersists;
 import com.zyx.cacheCore.bootstrap.MyCacheBootstrap;
+import com.zyx.cacheTest.listenr.MyRemoveListener;
 import com.zyx.cacheTest.load.MyCacheLoad;
 import org.junit.Assert;
 import org.junit.Test;
@@ -60,6 +60,17 @@ public class CacheBootstrapTest {
                 .build();
         Assert.assertEquals(2, cache.size());
         System.out.println(cache.entrySet());
+    }
+
+    @Test
+    public void removeListenerTest() {
+        IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
+                .size(2)
+                .addRemoveListener(new MyRemoveListener<>())
+                .build();
+        cache.put("math", "98");
+        cache.put("reading", "90");
+        cache.put("writing", "94");
     }
 }
 

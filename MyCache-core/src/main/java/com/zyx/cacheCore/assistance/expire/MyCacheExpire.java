@@ -4,6 +4,10 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCacheExpire;
+import com.zyx.cacheApi.api.IMyCacheRemoveListener;
+import com.zyx.cacheApi.api.IMyCacheRemoveListenerContext;
+import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListenerContext;
+import com.zyx.cacheCore.constant.enums.MyCacheRemoveType;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collection;
@@ -54,7 +58,15 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
         if (currentTime >= expireAt) {
             expireMap.remove(key);
             // 再移除缓存，后续可以通过惰性删除做补偿
-            cache.remove(key);
+            V removedValue = cache.remove(key);
+
+            IMyCacheRemoveListenerContext<K, V> context = MyCacheRemoveListenerContext.<K, V>newInstance()
+                    .key(key).value(removedValue)
+                    .type(MyCacheRemoveType.EXPIRE.code());
+//            for (IMyCacheRemoveListener<K, V> listener : cache.removeListeners()) {
+//                listener.listen(context);
+//            }
+            cache.removeListeners().forEach(listener -> listener.listen(context));
         }
     }
 

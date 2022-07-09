@@ -1,15 +1,13 @@
 package com.zyx.cacheCore.core;
 
-import cn.hutool.cache.Cache;
 import com.zyx.cacheApi.api.*;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvictContext;
 import com.zyx.cacheCore.assistance.expire.MyCacheExpire;
+import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListenerContext;
 import com.zyx.cacheCore.assistance.persist.InnerMyCachePersist;
+import com.zyx.cacheCore.constant.enums.MyCacheRemoveType;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author Zhang Yuxiao
@@ -34,6 +32,8 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     private IMyCacheLoad<K,V> load;
 
     private IMyCachePersist<K,V> persist;
+
+    private List<IMyCacheRemoveListener<K,V>> removeListeners;
 
     public MyCache() {
     }
@@ -95,7 +95,18 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     public V put(K key, V value) {
         MyCacheEvictContext<K, V> context = new MyCacheEvictContext<>();
         context.key(key).size(maxSize).cache(this);
-        evict.evict(context);
+        IMyCacheEntry<K, V> evictEntry = evict.evict(context);
+
+        if (null != evictEntry) {
+            IMyCacheRemoveListenerContext<K, V> removeListenerContext = MyCacheRemoveListenerContext.<K, V>newInstance()
+                    .key(evictEntry.key())
+                    .value(evictEntry.value())
+                    .type(MyCacheRemoveType.EVICT.code());
+            for (var listener: context.cache().removeListeners()) {
+                listener.listen(removeListenerContext);
+            }
+        }
+
         return map.put(key, value);
     }
 
@@ -155,6 +166,16 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     @Override
     public IMyCachePersist<K, V> persist() {
         return this.persist;
+    }
+
+    @Override
+    public List<IMyCacheRemoveListener<K, V>> removeListeners() {
+        return this.removeListeners;
+    }
+
+    public MyCache<K, V> removeListeners(List<IMyCacheRemoveListener<K, V>> removeListeners) {
+        this.removeListeners = removeListeners;
+        return this;
     }
 
     public MyCache<K, V> load(IMyCacheLoad<K, V> load) {
