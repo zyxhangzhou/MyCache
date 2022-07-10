@@ -1,10 +1,14 @@
 package com.zyx.cacheCore.core;
 
+import cn.hutool.cache.Cache;
+import com.zyx.cacheApi.annotation.MyCacheInterceptor;
 import com.zyx.cacheApi.api.*;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvictContext;
 import com.zyx.cacheCore.assistance.expire.MyCacheExpire;
 import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListenerContext;
+import com.zyx.cacheCore.assistance.listener.slow.MyCacheSlowListeners;
 import com.zyx.cacheCore.assistance.persist.InnerMyCachePersist;
+import com.zyx.cacheCore.assistance.util.ArgumentUtils;
 import com.zyx.cacheCore.constant.enums.MyCacheRemoveType;
 
 import java.util.*;
@@ -35,6 +39,11 @@ public class MyCache<K, V> implements IMyCache<K, V> {
 
     private List<IMyCacheRemoveListener<K,V>> removeListeners;
 
+    /**
+     * 慢日志监听类
+     */
+    private List<IMyCacheSlowListener> slowListeners = MyCacheSlowListeners.none();
+
     public MyCache() {
     }
 
@@ -64,26 +73,31 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     }
 
     @Override
+    @MyCacheInterceptor(refresh = true)
     public int size() {
         return map.size();
     }
 
     @Override
+    @MyCacheInterceptor(refresh = true)
     public boolean isEmpty() {
         return map.isEmpty();
     }
 
     @Override
+    @MyCacheInterceptor(refresh = true, evict = true)
     public boolean containsKey(Object key) {
         return map.containsKey(key);
     }
 
     @Override
+    @MyCacheInterceptor(refresh = true)
     public boolean containsValue(Object value) {
         return map.containsValue(value);
     }
 
     @Override
+    @MyCacheInterceptor(evict = true)
     @SuppressWarnings("unchecked")
     public V get(Object key) {
         K key1 = (K) key;
@@ -91,7 +105,9 @@ public class MyCache<K, V> implements IMyCache<K, V> {
         return map.get(key1);
     }
 
+    //TODO aof
     @Override
+    @MyCacheInterceptor(evict = true)
     public V put(K key, V value) {
         MyCacheEvictContext<K, V> context = new MyCacheEvictContext<>();
         context.key(key).size(maxSize).cache(this);
@@ -141,6 +157,7 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     }
 
     @Override
+    @MyCacheInterceptor
     public IMyCache<K, V> expire(K key, long timeInMills) {
         long expireTime = System.currentTimeMillis() + timeInMills;
         this.expireAt(key, expireTime);
@@ -148,10 +165,12 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     }
 
     @Override
+    @MyCacheInterceptor
     public IMyCacheExpire<K, V> expire() {
         return this.expire;
     }
 
+    //TODO aof的事情
     @Override
     public IMyCache<K, V> expireAt(K key, long timeInMills) {
         this.expire.expire(key, timeInMills);
@@ -169,8 +188,22 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     }
 
     @Override
+    public IMyCacheEvict<K, V> evict() {
+        return this.evict;
+    }
+
+    @Override
     public List<IMyCacheRemoveListener<K, V>> removeListeners() {
         return this.removeListeners;
+    }
+
+    @Override
+    public List<IMyCacheSlowListener> slowListeners() {
+        return this.slowListeners;
+    }
+    public MyCache<K, V> slowListeners(List<IMyCacheSlowListener> slowListeners) {
+        this.slowListeners = slowListeners;
+        return this;
     }
 
     public MyCache<K, V> removeListeners(List<IMyCacheRemoveListener<K, V>> removeListeners) {

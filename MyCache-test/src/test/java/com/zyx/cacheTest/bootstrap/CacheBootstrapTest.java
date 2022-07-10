@@ -1,10 +1,12 @@
 package com.zyx.cacheTest.bootstrap;
 
 import com.zyx.cacheApi.api.IMyCache;
+import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListener;
 import com.zyx.cacheCore.assistance.load.MyCacheLoads;
 import com.zyx.cacheCore.assistance.persist.MyCachePersists;
 import com.zyx.cacheCore.bootstrap.MyCacheBootstrap;
 import com.zyx.cacheTest.listenr.MyRemoveListener;
+import com.zyx.cacheTest.listenr.MySlowListener;
 import com.zyx.cacheTest.load.MyCacheLoad;
 import org.junit.Assert;
 import org.junit.Test;
@@ -67,10 +69,21 @@ public class CacheBootstrapTest {
         IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
                 .size(2)
                 .addRemoveListener(new MyRemoveListener<>())
+//                .addRemoveListener(new MyCacheRemoveListener<>())
                 .build();
         cache.put("math", "98");
         cache.put("reading", "90");
         cache.put("writing", "94");
+    }
+
+    @Test
+    public void slowListenerTest() {
+        IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
+                .addSlowListener(new MySlowListener())
+                .build();
+        cache.put("1", "2");
+        cache.put("3", "2");
+        System.out.println(cache.entrySet());
     }
 }
 

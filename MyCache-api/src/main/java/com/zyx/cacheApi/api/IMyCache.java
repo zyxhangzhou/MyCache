@@ -30,6 +30,13 @@ public interface IMyCache<K, V> extends Map<K, V> {
     IMyCacheLoad<K,V> load();
 
     IMyCachePersist<K,V> persist();
+    IMyCacheEvict<K,V> evict();
 
     List<IMyCacheRemoveListener<K,V>> removeListeners();
+
+    /**
+     * 慢日志监听类列表
+     * @return 监听器列表
+     */
+    List<IMyCacheSlowListener> slowListeners();
 }

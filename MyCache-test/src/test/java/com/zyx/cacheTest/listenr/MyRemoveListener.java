@@ -11,7 +11,7 @@ import com.zyx.cacheApi.api.IMyCacheRemoveListenerContext;
 public class MyRemoveListener<K, V> implements IMyCacheRemoveListener<K, V> {
     @Override
     public void listen(IMyCacheRemoveListenerContext<K, V> context) {
-        System.out.printf("【删除警告】Oops，竟然被删除了！ key: %s, value: %s\n",
-                context.key().toString(), context.value().toString());
+        System.out.printf("【删除警告】Oops，竟然被删除了！ key: %s, value: %s, type: %s\n",
+                context.key().toString(), context.value().toString(), context.type());
     }
 }

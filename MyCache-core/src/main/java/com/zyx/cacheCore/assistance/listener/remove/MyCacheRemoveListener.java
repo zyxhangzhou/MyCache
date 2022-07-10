@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MyCacheRemoveListener<K, V> implements IMyCacheRemoveListener<K, V> {
     @Override
     public void listen(IMyCacheRemoveListenerContext<K, V> context) {
-        log.debug("Removed key: {}, value: {}, type: {}",
+        log.info("Removed key: {}, value: {}, type: {}",
                 context.key(), context.value(), context.type());
     }
 }
