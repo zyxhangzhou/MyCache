@@ -79,7 +79,7 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
 
     @Override
     public void refreshExpire(Collection<K> keyList) {
-        if (CollUtil.isEmpty(keyList)) return;
+        if (CollectionUtils.isEmpty(keyList)) return;
         // 判断大小，小的作为外循环。一般都是过期的 keys 比较小。
         if (keyList.size() <= expireMap.size()) {
             for (K key : keyList) {

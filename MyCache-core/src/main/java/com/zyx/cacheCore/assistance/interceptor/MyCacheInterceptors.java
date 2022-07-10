@@ -1,6 +1,7 @@
 package com.zyx.cacheCore.assistance.interceptor;
 
 import com.zyx.cacheApi.api.IMyCacheInterceptor;
+import com.zyx.cacheCore.assistance.interceptor.aof.MyCacheInterceptorAof;
 import com.zyx.cacheCore.assistance.interceptor.common.MyCacheInterceptorCost;
 import com.zyx.cacheCore.assistance.interceptor.evict.MyCacheInterceptorEvict;
 import com.zyx.cacheCore.assistance.interceptor.refresh.MyCacheInterceptorRefresh;
@@ -52,11 +53,10 @@ public final class MyCacheInterceptors {
      * @return 结果
      * @since 0.0.10
      */
-    //TODO
-    //@SuppressWarnings("all")
-//    public static IMyCacheInterceptor aof() {
-//        return new MyCacheInterceptorAof();
-//    }
+    @SuppressWarnings("all")
+    public static IMyCacheInterceptor aof() {
+        return new MyCacheInterceptorAof();
+    }
 
 
 }

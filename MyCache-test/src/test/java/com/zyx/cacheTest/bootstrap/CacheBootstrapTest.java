@@ -1,16 +1,19 @@
 package com.zyx.cacheTest.bootstrap;
 
+import com.alibaba.fastjson.JSON;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListener;
 import com.zyx.cacheCore.assistance.load.MyCacheLoads;
 import com.zyx.cacheCore.assistance.persist.MyCachePersists;
 import com.zyx.cacheCore.bootstrap.MyCacheBootstrap;
+import com.zyx.cacheCore.model.PersistAofEntry;
 import com.zyx.cacheTest.listenr.MyRemoveListener;
 import com.zyx.cacheTest.listenr.MySlowListener;
 import com.zyx.cacheTest.load.MyCacheLoad;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -84,6 +87,44 @@ public class CacheBootstrapTest {
         cache.put("1", "2");
         cache.put("3", "2");
         System.out.println(cache.entrySet());
+    }
+
+    @Test
+    public void persistAofTest() throws InterruptedException {
+        IMyCache<String, String> cache = MyCacheBootstrap.<String,String>newInstance()
+                .persist(MyCachePersists.aof("1.aof"))
+                .build();
+
+        cache.put("x", "x");
+        cache.expire("x", 10);
+        cache.remove("2");
+
+        TimeUnit.SECONDS.sleep(1);
+    }
+
+    @Test
+    public void loadAofTest() throws InterruptedException {
+        IMyCache<String, String> cache = MyCacheBootstrap.<String,String>newInstance()
+                .load(MyCacheLoads.aof("default.aof"))
+                .build();
+
+        Assert.assertEquals(1, cache.size());
+        System.out.println(cache.entrySet());
+    }
+    @Test
+    public void commonTest() {
+        ArrayList<PersistAofEntry> entries = new ArrayList<>();
+        Object[] objects = new Object[]{"12", 34};
+        PersistAofEntry e = PersistAofEntry.newInstance();
+        e.setParams(objects);
+        e.setMethodName("hahahaha");
+        entries.add(e);
+        Object[] objects1 = new Object[]{"67", 56};
+        PersistAofEntry e1 = PersistAofEntry.newInstance();
+        e1.setParams(objects1);
+        e1.setMethodName("sadasa");
+        entries.add(e1);
+        System.out.println(JSON.toJSONString(entries.get(0)));
     }
 }
 

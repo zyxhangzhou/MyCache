@@ -17,4 +17,7 @@ public final class MyCacheLoads {
         return new MyCacheLoadJson<>(dbPath);
     }
 
+    public static <K,V> IMyCacheLoad<K,V> aof(final String dbPath) {
+        return new MyCacheLoadAof<>(dbPath);
+    }
 }

@@ -105,9 +105,8 @@ public class MyCache<K, V> implements IMyCache<K, V> {
         return map.get(key1);
     }
 
-    //TODO aof
     @Override
-    @MyCacheInterceptor(evict = true)
+    @MyCacheInterceptor(aof = true, evict = true)
     public V put(K key, V value) {
         MyCacheEvictContext<K, V> context = new MyCacheEvictContext<>();
         context.key(key).size(maxSize).cache(this);
@@ -127,31 +126,37 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     }
 
     @Override
+    @MyCacheInterceptor(aof = true, evict = true)
     public V remove(Object key) {
         return map.remove(key);
     }
 
     @Override
+    @MyCacheInterceptor(aof = true)
     public void putAll(Map<? extends K, ? extends V> m) {
         map.putAll(m);
     }
 
     @Override
+    @MyCacheInterceptor(aof = true, refresh = true)
     public void clear() {
         map.clear();
     }
 
     @Override
+    @MyCacheInterceptor(refresh = true)
     public Set<K> keySet() {
         return map.keySet();
     }
 
     @Override
+    @MyCacheInterceptor(refresh = true)
     public Collection<V> values() {
         return map.values();
     }
 
     @Override
+    @MyCacheInterceptor(refresh = true)
     public Set<Entry<K, V>> entrySet() {
         return map.entrySet();
     }
@@ -170,8 +175,8 @@ public class MyCache<K, V> implements IMyCache<K, V> {
         return this.expire;
     }
 
-    //TODO aof的事情
     @Override
+    @MyCacheInterceptor(aof = true)
     public IMyCache<K, V> expireAt(K key, long timeInMills) {
         this.expire.expire(key, timeInMills);
         return this;

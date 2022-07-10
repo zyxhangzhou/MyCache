@@ -3,9 +3,11 @@ package com.zyx.cacheCore.proxy.bs;
 import com.zyx.cacheApi.annotation.MyCacheInterceptor;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCacheInterceptor;
+import com.zyx.cacheApi.api.IMyCachePersist;
 import com.zyx.cacheApi.api.IMyCacheProxyBsContext;
 import com.zyx.cacheCore.assistance.interceptor.MyCacheInterceptorContext;
 import com.zyx.cacheCore.assistance.interceptor.MyCacheInterceptors;
+import com.zyx.cacheCore.assistance.persist.MyCachePersistAof;
 
 import java.util.List;
 
@@ -43,8 +45,8 @@ public class MyCacheProxyBs {
      * 持久化拦截器
      * @since 0.0.10
      */
-//    @SuppressWarnings("all")
-//    private final IMyCacheInterceptor persistInterceptors = MyCacheInterceptors.aof();
+    @SuppressWarnings("all")
+    private final IMyCacheInterceptor persistInterceptors = MyCacheInterceptors.aof();
 
     /**
      * 驱除拦截器
@@ -136,14 +138,15 @@ public class MyCacheProxyBs {
             }
 
             //3. AOF 追加
-//            final IMyCachePersist cachePersist = cache.persist();
-//            if(cacheInterceptor.aof() && (cachePersist instanceof MyCachePersistAof)) {
-//                if(before) {
-//                    persistInterceptors.before(interceptorContext);
-//                } else {
-//                    persistInterceptors.after(interceptorContext);
-//                }
-//            }
+            //当持久化类为AOF模式时，才进行调用
+            final IMyCachePersist cachePersist = cache.persist();
+            if(cacheInterceptor.aof() && (cachePersist instanceof MyCachePersistAof)) {
+                if(before) {
+                    persistInterceptors.before(interceptorContext);
+                } else {
+                    persistInterceptors.after(interceptorContext);
+                }
+            }
 
             //4. 驱除策略更新
             if(cacheInterceptor.evict()) {
