@@ -6,16 +6,17 @@ import com.zyx.cacheApi.api.IMyCacheEvictContext;
 
 /**
  * @Author Zhang Yuxiao
- * @Date 2022/7/4 19:51
+ * @Date 2022/7/11 14:18
  * @Description
  */
 public abstract class AbstractMyCacheEvict<K, V> implements IMyCacheEvict<K, V> {
     @Override
-    public IMyCacheEntry<K,V> evict(IMyCacheEvictContext<K, V> context) {
+    public IMyCacheEntry<K, V> evict(IMyCacheEvictContext<K, V> context) {
         return doEvict(context);
     }
 
-    protected abstract IMyCacheEntry<K,V> doEvict(IMyCacheEvictContext<K, V> context);
+    protected abstract IMyCacheEntry<K, V> doEvict(IMyCacheEvictContext<K, V> context);
+
 
     @Override
     public void updateKey(K key) {

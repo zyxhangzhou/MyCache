@@ -12,7 +12,7 @@ import java.util.Queue;
  * @Date 2022/7/4 16:45
  * @Description
  */
-public class MyCacheEvictFIFO<K, V> extends AbstractMyCacheEvict<K,V> {
+public class MyCacheEvictFifo<K, V> extends AbstractMyCacheEvict<K,V> {
 
     private final Queue<K> queue = new LinkedList<>();
     @Override

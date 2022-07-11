@@ -11,6 +11,6 @@ public class MyCacheEvictStrategy {
     private MyCacheEvictStrategy() {}
 
     public static <K, V> IMyCacheEvict<K, V> fifo() {
-        return new MyCacheEvictFIFO<>();
+        return new MyCacheEvictFifo<>();
     }
 }

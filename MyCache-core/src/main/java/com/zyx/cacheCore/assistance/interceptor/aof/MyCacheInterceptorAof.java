@@ -37,9 +37,9 @@ public class MyCacheInterceptorAof<K, V> implements IMyCacheInterceptor<K, V> {
             String json = JSON.toJSONString(aofEntry);
 
             // 直接持久化
-            log.info("AOF Starting to append： {}", json);
+            log.debug("AOF Starting to append： {}", json);
             cachePersistAof.append(json);
-            log.info("AOF Appending is done!： {}", json);
+            log.debug("AOF Appending is done!： {}", json);
         }
     }
 }

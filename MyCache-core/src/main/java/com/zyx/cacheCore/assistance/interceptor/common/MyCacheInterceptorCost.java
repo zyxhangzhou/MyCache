@@ -19,14 +19,14 @@ import java.util.List;
 public class MyCacheInterceptorCost<K, V> implements IMyCacheInterceptor<K, V> {
     @Override
     public void before(IMyCacheInterceptorContext<K, V> context) {
-        log.info("Cost start, method: {}", context.method().getName());
+        log.debug("Cost start, method: {}", context.method().getName());
     }
 
     @Override
     public void after(IMyCacheInterceptorContext<K, V> context) {
         long costMills = context.endMills()-context.startMills();
         final String methodName = context.method().getName();
-        log.info("Cost end, method: {}, cost: {}ms", methodName, costMills);
+        log.debug("Cost end, method: {}, cost: {}ms", methodName, costMills);
 
         // 添加慢日志操作
         List<IMyCacheSlowListener> slowListeners = context.cache().slowListeners();

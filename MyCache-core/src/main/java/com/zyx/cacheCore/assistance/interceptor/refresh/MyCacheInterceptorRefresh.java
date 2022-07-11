@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MyCacheInterceptorRefresh<K,V> implements IMyCacheInterceptor<K, V> {
     @Override
     public void before(IMyCacheInterceptorContext<K, V> context) {
-        log.info("Refresh start");
+        log.debug("Refresh start");
         final IMyCache<K,V> cache = context.cache();
         cache.expire().refreshExpire(cache.keySet());
     }
