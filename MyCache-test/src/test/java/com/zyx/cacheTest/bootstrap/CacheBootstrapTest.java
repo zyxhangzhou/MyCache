@@ -13,7 +13,7 @@ import com.zyx.cacheTest.load.MyCacheLoad;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -103,7 +103,7 @@ public class CacheBootstrapTest {
     }
 
     @Test
-    public void loadAofTest() throws InterruptedException {
+    public void loadAofTest() {
         IMyCache<String, String> cache = MyCacheBootstrap.<String,String>newInstance()
                 .load(MyCacheLoads.aof("default.aof"))
                 .build();
@@ -113,18 +113,28 @@ public class CacheBootstrapTest {
     }
     @Test
     public void commonTest() {
-        ArrayList<PersistAofEntry> entries = new ArrayList<>();
-        Object[] objects = new Object[]{"12", 34};
-        PersistAofEntry e = PersistAofEntry.newInstance();
-        e.setParams(objects);
-        e.setMethodName("hahahaha");
-        entries.add(e);
-        Object[] objects1 = new Object[]{"67", 56};
-        PersistAofEntry e1 = PersistAofEntry.newInstance();
-        e1.setParams(objects1);
-        e1.setMethodName("sadasa");
-        entries.add(e1);
-        System.out.println(JSON.toJSONString(entries.get(0)));
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(1, "1");
+        map.put(2, "2");
+        map.put(3, "3");
+        Iterator<Map.Entry<Integer, String>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, String> entry = iterator.next();
+            if (entry.getKey() == 2) {
+                iterator.remove();
+            }
+            System.out.println(map);
+        }
+//        for (Map.Entry<Integer, String> entry : entries) {
+//
+//            if (entry.getKey() == 2) {
+//                map.remove(entry.getKey());
+//            }
+//
+//            //System.out.println(map.entrySet());
+//        }
+        System.out.println("==============");
+        System.out.println(map);
     }
 }
 
