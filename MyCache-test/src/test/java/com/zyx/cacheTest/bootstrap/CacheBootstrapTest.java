@@ -136,7 +136,7 @@ public class CacheBootstrapTest {
     public void lruTest2() {
         IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
                 .size(3)
-                .evict(MyCacheEvicts.lru2())
+                .evict(MyCacheEvicts.clock())
                 .build();
         cache.put("A", "hi");
         cache.put("B", "cpp");

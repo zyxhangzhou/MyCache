@@ -100,5 +100,26 @@ public class MyCacheEvicts {
         return new MyCacheEvictLru2<>();
     }
 
+    /**
+     * LFU 驱除策略
+     *
+     * 基于 LFU 实现
+     * @param <K> key
+     * @param <V> value
+     * @return 结果
+     */
+    public static <K, V> IMyCacheEvict<K, V> lfu() {
+        return new MyCacheEvictLfu<>();
+    }
+
+    /**
+     * CLOCK算法
+     * @param <K> key
+     * @param <V> value
+     * @return 结果
+     */
+    public static <K, V> IMyCacheEvict<K, V> clock() {
+        return new MyCacheEvictClock<>();
+    }
 
 }
