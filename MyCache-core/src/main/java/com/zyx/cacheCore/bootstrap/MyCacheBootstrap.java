@@ -2,8 +2,8 @@ package com.zyx.cacheCore.bootstrap;
 
 import com.zyx.cacheApi.api.*;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvictStrategy;
-import com.zyx.cacheCore.assistance.listenr.remove.MyCacheRemoveListeners;
-import com.zyx.cacheCore.assistance.listenr.slow.MyCacheSlowListeners;
+import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListeners;
+import com.zyx.cacheCore.assistance.listener.slow.MyCacheSlowListeners;
 import com.zyx.cacheCore.assistance.load.MyCacheLoads;
 import com.zyx.cacheCore.assistance.persist.MyCachePersists;
 import com.zyx.cacheCore.assistance.util.ArgumentUtils;

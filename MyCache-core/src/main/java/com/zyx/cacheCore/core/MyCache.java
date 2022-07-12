@@ -4,8 +4,8 @@ import com.zyx.cacheApi.annotation.MyCacheInterceptor;
 import com.zyx.cacheApi.api.*;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvictContext;
 import com.zyx.cacheCore.assistance.expire.MyCacheExpire;
-import com.zyx.cacheCore.assistance.listenr.remove.MyCacheRemoveListenerContext;
-import com.zyx.cacheCore.assistance.listenr.slow.MyCacheSlowListeners;
+import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListenerContext;
+import com.zyx.cacheCore.assistance.listener.slow.MyCacheSlowListeners;
 import com.zyx.cacheCore.assistance.persist.InnerMyCachePersist;
 import com.zyx.cacheCore.constant.enums.MyCacheRemoveType;
 

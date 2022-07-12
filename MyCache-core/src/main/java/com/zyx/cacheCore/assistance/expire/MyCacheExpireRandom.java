@@ -4,7 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCacheExpire;
 import com.zyx.cacheApi.api.IMyCacheRemoveListenerContext;
-import com.zyx.cacheCore.assistance.listenr.remove.MyCacheRemoveListenerContext;
+import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListenerContext;
 import com.zyx.cacheCore.constant.enums.MyCacheRemoveType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;

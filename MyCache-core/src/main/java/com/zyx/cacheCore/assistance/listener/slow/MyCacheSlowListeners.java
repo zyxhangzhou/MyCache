@@ -1,4 +1,4 @@
-package com.zyx.cacheCore.assistance.listenr.slow;
+package com.zyx.cacheCore.assistance.listener.slow;
 
 import com.zyx.cacheApi.api.IMyCacheSlowListener;
 
