@@ -1,4 +1,4 @@
-package com.zyx.cacheTest.listenr;
+package com.zyx.cacheTest.listener;
 
 import com.zyx.cacheApi.api.IMyCacheSlowListener;
 import com.zyx.cacheApi.api.IMyCacheSlowListenerContext;
