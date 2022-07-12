@@ -8,12 +8,14 @@ import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListenerContext
 import com.zyx.cacheCore.assistance.listener.slow.MyCacheSlowListeners;
 import com.zyx.cacheCore.assistance.persist.InnerMyCachePersist;
 import com.zyx.cacheCore.constant.enums.MyCacheRemoveType;
+import com.zyx.cacheCore.proxy.CacheProxy;
 
 import java.util.*;
 
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/6/30 19:51
+ * @Description 缓存核心类
  */
 public class MyCache<K, V> implements IMyCache<K, V> {
 
@@ -31,11 +33,11 @@ public class MyCache<K, V> implements IMyCache<K, V> {
 
     private IMyCacheExpire<K, V> expire;
 
-    private IMyCacheLoad<K,V> load;
+    private IMyCacheLoad<K, V> load;
 
-    private IMyCachePersist<K,V> persist;
+    private IMyCachePersist<K, V> persist;
 
-    private List<IMyCacheRemoveListener<K,V>> removeListeners;
+    private List<IMyCacheRemoveListener<K, V>> removeListeners;
 
     /**
      * 慢日志监听类
@@ -115,7 +117,7 @@ public class MyCache<K, V> implements IMyCache<K, V> {
                     .key(evictEntry.key())
                     .value(evictEntry.value())
                     .type(MyCacheRemoveType.EVICT.code());
-            for (var listener: context.cache().removeListeners()) {
+            for (var listener : context.cache().removeListeners()) {
                 listener.listen(removeListenerContext);
             }
         }
@@ -163,8 +165,9 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     @MyCacheInterceptor
     public IMyCache<K, V> expire(K key, long timeInMills) {
         long expireTime = System.currentTimeMillis() + timeInMills;
-        this.expireAt(key, expireTime);
-        return this;
+        // 使用代理调用expireAt方法
+        MyCache<K, V> proxy = (MyCache<K, V>) CacheProxy.getProxy(this);
+        return proxy.expireAt(key, expireTime);
     }
 
     @Override
@@ -204,6 +207,7 @@ public class MyCache<K, V> implements IMyCache<K, V> {
     public List<IMyCacheSlowListener> slowListeners() {
         return this.slowListeners;
     }
+
     public MyCache<K, V> slowListeners(List<IMyCacheSlowListener> slowListeners) {
         this.slowListeners = slowListeners;
         return this;
@@ -223,7 +227,7 @@ public class MyCache<K, V> implements IMyCache<K, V> {
         this.expire = new MyCacheExpire<>(this);
         this.load.load(this);
 
-        if (null!=this.persist) {
+        if (null != this.persist) {
             new InnerMyCachePersist<>(this, persist);
         }
     }

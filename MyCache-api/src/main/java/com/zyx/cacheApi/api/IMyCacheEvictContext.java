@@ -6,6 +6,7 @@ package com.zyx.cacheApi.api;
  * @Description 驱逐策略上下文
  */
 public interface IMyCacheEvictContext<K, V> {
+
     /**
      * 新加入的key
      *

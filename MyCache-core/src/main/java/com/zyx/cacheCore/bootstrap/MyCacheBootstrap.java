@@ -1,7 +1,7 @@
 package com.zyx.cacheCore.bootstrap;
 
 import com.zyx.cacheApi.api.*;
-import com.zyx.cacheCore.assistance.evict.MyCacheEvictStrategy;
+import com.zyx.cacheCore.assistance.evict.MyCacheEvicts;
 import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListeners;
 import com.zyx.cacheCore.assistance.listener.slow.MyCacheSlowListeners;
 import com.zyx.cacheCore.assistance.load.MyCacheLoads;
@@ -18,26 +18,53 @@ import java.util.Objects;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/4 16:58
- * @Description
+ * @Description 缓存引导类
  */
 public class MyCacheBootstrap<K, V> {
     private MyCacheBootstrap() {
     }
 
+    /**
+     * 创建对象实例
+     *
+     * @param <K> key
+     * @param <V> value
+     * @return this
+     */
     public static <K, V> MyCacheBootstrap<K, V> newInstance() {
         return new MyCacheBootstrap<>();
     }
 
+    /**
+     * map 实现
+     */
     private Map<K, V> map = new HashMap<>();
+
+    /**
+     * 大小限制
+     */
     private int size = Integer.MAX_VALUE;
-    private IMyCacheEvict<K, V> evict = MyCacheEvictStrategy.fifo();
 
-    private final List<IMyCacheRemoveListener<K,V>> removeListeners = MyCacheRemoveListeners.defaults();
+    /**
+     * 驱除策略-默认FIFO
+     */
+    private IMyCacheEvict<K, V> evict = MyCacheEvicts.fifo();
 
+    /**
+     * 删除监听类
+     */
+    private final List<IMyCacheRemoveListener<K, V>> removeListeners = MyCacheRemoveListeners.defaults();
+
+    /**
+     * 慢操作监听类
+     */
     private final List<IMyCacheSlowListener> slowListeners = MyCacheSlowListeners.none();
     private IMyCacheLoad<K, V> load = MyCacheLoads.none();
 
-    private IMyCachePersist<K,V> persist = MyCachePersists.none();
+    /**
+     * 持久化策略
+     */
+    private IMyCachePersist<K, V> persist = MyCachePersists.none();
 
     public MyCacheBootstrap<K, V> map(Map<K, V> map) {
         Objects.requireNonNull(map, "map is null!");
@@ -46,7 +73,7 @@ public class MyCacheBootstrap<K, V> {
     }
 
     public MyCacheBootstrap<K, V> size(int size) {
-        ArgumentUtils.requirePositve(size, "size");
+        ArgumentUtils.requireNonNegative(size, "size");
         this.size = size;
         return this;
     }

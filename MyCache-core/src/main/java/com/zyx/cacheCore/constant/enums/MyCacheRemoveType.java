@@ -3,7 +3,7 @@ package com.zyx.cacheCore.constant.enums;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 14:51
- * @Description
+ * @Description 删除类型枚举类
  */
 public enum MyCacheRemoveType {
     EXPIRE("expire", "过期"),

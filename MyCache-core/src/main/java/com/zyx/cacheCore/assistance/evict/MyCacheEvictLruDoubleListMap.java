@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 16:02
- * @Description
+ * @Description 丢弃策略-LRU 使用HashMap + 双链表实现
  */
 @Slf4j
 public class MyCacheEvictLruDoubleListMap<K, V> extends AbstractMyCacheEvict<K, V> {

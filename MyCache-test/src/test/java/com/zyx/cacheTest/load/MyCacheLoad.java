@@ -6,9 +6,9 @@ import com.zyx.cacheApi.api.IMyCacheLoad;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/8 16:34
- * @Description
+ * @Description 测试用的默认加载数据
  */
-public class MyCacheLoad implements IMyCacheLoad<String ,String> {
+public class MyCacheLoad implements IMyCacheLoad<String, String> {
     @Override
     public void load(IMyCache<String, String> cache) {
         cache.put("sun", "sunday");

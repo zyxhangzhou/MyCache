@@ -6,7 +6,7 @@ import com.zyx.cacheApi.api.IMyCacheRemoveListenerContext;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 14:09
- * @Description
+ * @Description 测试用的默认删除监听器
  */
 public class MyRemoveListener<K, V> implements IMyCacheRemoveListener<K, V> {
     @Override

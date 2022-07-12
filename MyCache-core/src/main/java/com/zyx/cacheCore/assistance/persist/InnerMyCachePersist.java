@@ -10,13 +10,24 @@ import java.util.concurrent.ScheduledExecutorService;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/8 19:51
- * @Description
+ * @Description 内部持久化类
  */
 @Slf4j
 public class InnerMyCachePersist<K, V> {
+
+    /**
+     * 缓存信息
+     */
     private final IMyCache<K, V> cache;
+
+    /**
+     * 缓存持久化策略
+     */
     private final IMyCachePersist<K, V> persist;
 
+    /**
+     * 定时任务
+     */
     private static final ScheduledExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
 
 

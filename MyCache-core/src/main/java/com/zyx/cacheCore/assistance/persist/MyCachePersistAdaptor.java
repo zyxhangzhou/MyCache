@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/8 20:14
- * @Description
+ * @Description 缓存持久化-适配器模式
  */
 public class MyCachePersistAdaptor<K, V> implements IMyCachePersist<K, V> {
 

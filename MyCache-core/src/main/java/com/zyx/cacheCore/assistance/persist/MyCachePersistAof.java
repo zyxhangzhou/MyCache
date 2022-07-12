@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 16:53
- * @Description
+ * @Description 持久化AOF
  */
 @Slf4j
 public class MyCachePersistAof<K, V> extends MyCachePersistAdaptor<K, V> {
@@ -36,6 +36,12 @@ public class MyCachePersistAof<K, V> extends MyCachePersistAdaptor<K, V> {
         this.dbPath = dbPath;
     }
 
+    /**
+     * AOF模式的持久化
+     * 后期可以考虑把写文件的操作抽象成一个工具类，减少暴露细节
+     *
+     * @param cache 缓存
+     */
     @Override
     public void persist(IMyCache<K, V> cache) {
         log.info("开始 AOF 持久化到文件");

@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 13:24
- * @Description
+ * @Description 代理引导类上下文
  */
 public class MyCacheProxyBsContext implements IMyCacheProxyBsContext {
 
@@ -32,6 +32,9 @@ public class MyCacheProxyBsContext implements IMyCacheProxyBsContext {
      * 拦截器
      */
     private MyCacheInterceptor interceptor;
+
+    private MyCacheProxyBsContext() {
+    }
 
     public static MyCacheProxyBsContext newInstance() {
         return new MyCacheProxyBsContext();

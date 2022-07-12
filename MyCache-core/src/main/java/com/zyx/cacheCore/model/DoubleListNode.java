@@ -3,9 +3,10 @@ package com.zyx.cacheCore.model;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 15:31
- * @Description
+ * @Description 双向链表节点
  */
 public class DoubleListNode<K, V> {
+
     /**
      * 键
      */
@@ -19,12 +20,12 @@ public class DoubleListNode<K, V> {
     /**
      * 前一个节点
      */
-    private DoubleListNode<K,V> pre;
+    private DoubleListNode<K, V> pre;
 
     /**
      * 后一个节点
      */
-    private DoubleListNode<K,V> next;
+    private DoubleListNode<K, V> next;
 
     public K key() {
         return key;

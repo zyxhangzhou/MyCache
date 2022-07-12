@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 21:16
- * @Description
+ * @Description AOF模式的加载
  */
 @Slf4j
 public class MyCacheLoadAof<K, V> implements IMyCacheLoad<K, V> {
@@ -66,9 +66,9 @@ public class MyCacheLoadAof<K, V> implements IMyCacheLoad<K, V> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.info("[load] 开始处理 path: {}", dbPath);
+        log.info("[load] Starting to process path： {}", dbPath);
         if (CollectionUtils.isEmpty(lines)) {
-            log.info("[load] path: {} 文件内容为空，直接返回", dbPath);
+            log.info("[load] path: {} file is empty! ", dbPath);
             return;
         }
         for (String line : lines) {

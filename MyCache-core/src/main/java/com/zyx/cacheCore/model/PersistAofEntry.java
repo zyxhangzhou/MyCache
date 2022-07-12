@@ -5,9 +5,10 @@ import java.util.Arrays;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 16:50
- * @Description
+ * @Description AOF持久化的节点信息
  */
 public class PersistAofEntry {
+
     /**
      * 参数信息
      */

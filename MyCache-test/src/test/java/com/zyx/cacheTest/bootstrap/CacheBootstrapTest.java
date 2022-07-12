@@ -5,8 +5,8 @@ import com.zyx.cacheCore.assistance.evict.MyCacheEvicts;
 import com.zyx.cacheCore.assistance.load.MyCacheLoads;
 import com.zyx.cacheCore.assistance.persist.MyCachePersists;
 import com.zyx.cacheCore.bootstrap.MyCacheBootstrap;
-import com.zyx.cacheTest.listenr.MyRemoveListener;
-import com.zyx.cacheTest.listenr.MySlowListener;
+import com.zyx.cacheTest.listener.MyRemoveListener;
+import com.zyx.cacheTest.listener.MySlowListener;
 import com.zyx.cacheTest.load.MyCacheLoad;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/8 16:49
- * @Description
+ * @Description 测试类
  */
 public class CacheBootstrapTest {
 

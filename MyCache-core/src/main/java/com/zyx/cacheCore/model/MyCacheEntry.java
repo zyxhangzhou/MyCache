@@ -5,11 +5,18 @@ import com.zyx.cacheApi.api.IMyCacheEntry;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/4 20:21
- * @Description
+ * @Description 缓存的节点信息
  */
 public class MyCacheEntry<K, V> implements IMyCacheEntry<K, V> {
 
+    /**
+     * 键
+     */
     private final K key;
+
+    /**
+     * 值
+     */
     private final V value;
 
     public MyCacheEntry(K key, V value) {

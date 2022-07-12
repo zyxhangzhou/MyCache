@@ -6,7 +6,7 @@ import com.zyx.cacheApi.api.IMyCacheSlowListenerContext;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 15:32
- * @Description
+ * @Description 测试用的默认慢操作监听器
  */
 public class MySlowListener implements IMyCacheSlowListener {
     @Override
@@ -16,6 +16,7 @@ public class MySlowListener implements IMyCacheSlowListener {
 
     /**
      * 慢日志的阈值，设定为0是为了方便测试
+     *
      * @return long 设定为0
      */
     @Override

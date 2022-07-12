@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 17:46
- * @Description
+ * @Description Append on Files 顺序追加模式持久化
  */
 @Slf4j
 public class MyCacheInterceptorAof<K, V> implements IMyCacheInterceptor<K, V> {

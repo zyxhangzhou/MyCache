@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/12 14:01
- * @Description
+ * @Description 基于循环链表封装实现的LRU map
  */
 @Slf4j
 public class LruMapCircleList<K, V> implements ILruMap<K, V> {

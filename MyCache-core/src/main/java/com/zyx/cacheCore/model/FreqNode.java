@@ -5,9 +5,10 @@ import java.util.Objects;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/12 11:17
- * @Description
+ * @Description 含有频率信息的节点
  */
 public class FreqNode<K, V> {
+
     /**
      * 键
      */

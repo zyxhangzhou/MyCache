@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 14:52
- * @Description
+ * @Description 所有的丢弃/驱逐策略
  */
 public class MyCacheEvicts {
     private MyCacheEvicts() {
@@ -89,8 +89,9 @@ public class MyCacheEvicts {
 
     /**
      * LRU 驱除策略
-     *
+     * <p>
      * 基于 LRU-2 实现
+     *
      * @param <K> key
      * @param <V> value
      * @return 结果
@@ -102,8 +103,9 @@ public class MyCacheEvicts {
 
     /**
      * LFU 驱除策略
-     *
+     * <p>
      * 基于 LFU 实现
+     *
      * @param <K> key
      * @param <V> value
      * @return 结果
@@ -114,6 +116,7 @@ public class MyCacheEvicts {
 
     /**
      * CLOCK算法
+     *
      * @param <K> key
      * @param <V> value
      * @return 结果

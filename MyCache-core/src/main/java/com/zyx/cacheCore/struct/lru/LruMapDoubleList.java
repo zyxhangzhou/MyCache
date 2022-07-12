@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 23:29
- * @Description 将LRU + map简单的封装为一个数据结构
+ * @Description 基于双向链表的实现
  */
 @Slf4j
 public class LruMapDoubleList<K, V> implements ILruMap<K, V> {

@@ -12,12 +12,13 @@ import java.util.List;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 17:37
- * @Description
+ * @Description 所有的拦截器
  */
 public final class MyCacheInterceptors {
 
     /**
      * 默认通用
+     *
      * @return 结果
      */
     @SuppressWarnings("all")
@@ -29,6 +30,7 @@ public final class MyCacheInterceptors {
 
     /**
      * 默认刷新
+     *
      * @return 结果
      * @since 0.0.5
      */
@@ -41,6 +43,7 @@ public final class MyCacheInterceptors {
 
     /**
      * 驱除策略拦截器
+     *
      * @return 结果
      */
     @SuppressWarnings("all")
@@ -50,6 +53,7 @@ public final class MyCacheInterceptors {
 
     /**
      * AOF 模式
+     *
      * @return 结果
      * @since 0.0.10
      */
@@ -57,6 +61,4 @@ public final class MyCacheInterceptors {
     public static IMyCacheInterceptor aof() {
         return new MyCacheInterceptorAof();
     }
-
-
 }

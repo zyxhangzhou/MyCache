@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/12 14:12
- * @Description
+ * @Description 驱逐策略-clock算法
  */
 @Slf4j
 public class MyCacheEvictClock<K, V> extends AbstractMyCacheEvict<K, V> {
@@ -25,6 +25,12 @@ public class MyCacheEvictClock<K, V> extends AbstractMyCacheEvict<K, V> {
         this.circleList = new LruMapCircleList<>();
     }
 
+    /**
+     * 执行驱逐
+     *
+     * @param context 上下文
+     * @return IMyCacheEntry
+     */
     @Override
     protected IMyCacheEntry<K, V> doEvict(IMyCacheEvictContext<K, V> context) {
         IMyCacheEntry<K, V> result = null;

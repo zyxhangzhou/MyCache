@@ -16,10 +16,14 @@ import java.util.List;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 12:07
- * @Description
+ * @Description JSON模式的加载
  */
 @Slf4j
 public class MyCacheLoadJson<K, V> implements IMyCacheLoad<K, V> {
+
+    /**
+     * 文件路径
+     */
     private final String dbPath;
 
     public MyCacheLoadJson(String dbPath) {
@@ -28,13 +32,13 @@ public class MyCacheLoadJson<K, V> implements IMyCacheLoad<K, V> {
 
     @Override
     public void load(IMyCache<K, V> cache) {
-        List<String> lines = null;
+        List<String> lines;
         try {
             lines = Files.readAllLines(Paths.get(dbPath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.info("[load] start processing path: {}", dbPath);
+        log.info("[load] starting to process path: {}", dbPath);
         if (CollectionUtils.isEmpty(lines)) {
             log.info("[load] path: {} file is empty!", dbPath);
             return;

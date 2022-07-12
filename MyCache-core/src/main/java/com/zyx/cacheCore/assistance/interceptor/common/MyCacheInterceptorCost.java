@@ -12,24 +12,24 @@ import java.util.List;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 17:23
- * @Description
+ * @Description 耗时统计
  */
 @Slf4j
 public class MyCacheInterceptorCost<K, V> implements IMyCacheInterceptor<K, V> {
     @Override
     public void before(IMyCacheInterceptorContext<K, V> context) {
-        log.debug("Cost start, method: {}", context.method().getName());
+        log.debug("Cost is starting, method: {}", context.method().getName());
     }
 
     @Override
     public void after(IMyCacheInterceptorContext<K, V> context) {
-        long costMills = context.endMills()-context.startMills();
+        long costMills = context.endMills() - context.startMills();
         final String methodName = context.method().getName();
-        log.debug("Cost end, method: {}, cost: {}ms", methodName, costMills);
+        log.debug("Cost ended, method: {}, cost: {}ms", methodName, costMills);
 
         // 添加慢日志操作
         List<IMyCacheSlowListener> slowListeners = context.cache().slowListeners();
-        if(CollectionUtils.isNotEmpty(slowListeners)) {
+        if (CollectionUtils.isNotEmpty(slowListeners)) {
             MyCacheSlowListenerContext listenerContext = MyCacheSlowListenerContext.newInstance().startTimeMills(context.startMills())
                     .endTimeMills(context.endMills())
                     .costTimeMills(costMills)

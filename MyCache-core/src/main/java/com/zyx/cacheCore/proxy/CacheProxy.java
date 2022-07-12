@@ -11,7 +11,7 @@ import java.lang.reflect.Proxy;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 14:18
- * @Description
+ * @Description 缓存代理类
  */
 public final class CacheProxy {
     private CacheProxy() {

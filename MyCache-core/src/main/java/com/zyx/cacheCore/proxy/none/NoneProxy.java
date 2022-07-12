@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 14:20
- * @Description
+ * @Description 空代理类
  */
 public class NoneProxy implements InvocationHandler, IMyCacheProxy {
 

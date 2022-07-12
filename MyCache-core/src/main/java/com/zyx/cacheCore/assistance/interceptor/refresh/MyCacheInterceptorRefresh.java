@@ -8,19 +8,19 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 19:41
- * @Description
+ * @Description 刷新
  */
 @Slf4j
-public class MyCacheInterceptorRefresh<K,V> implements IMyCacheInterceptor<K, V> {
+public class MyCacheInterceptorRefresh<K, V> implements IMyCacheInterceptor<K, V> {
     @Override
     public void before(IMyCacheInterceptorContext<K, V> context) {
         log.debug("Refresh start");
-        final IMyCache<K,V> cache = context.cache();
+        final IMyCache<K, V> cache = context.cache();
         cache.expire().refreshExpire(cache.keySet());
     }
 
     @Override
     public void after(IMyCacheInterceptorContext<K, V> context) {
-
+        // nothing to do
     }
 }

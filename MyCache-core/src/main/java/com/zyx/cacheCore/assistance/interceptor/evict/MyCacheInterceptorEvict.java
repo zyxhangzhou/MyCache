@@ -10,22 +10,22 @@ import java.lang.reflect.Method;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 17:40
- * @Description
+ * @Description 丢弃策略拦截器
  */
 @Slf4j
-public class MyCacheInterceptorEvict<K,V> implements IMyCacheInterceptor<K, V> {
+public class MyCacheInterceptorEvict<K, V> implements IMyCacheInterceptor<K, V> {
     @Override
     public void before(IMyCacheInterceptorContext<K, V> context) {
-
+        // nothing to do
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void after(IMyCacheInterceptorContext<K, V> context) {
-        IMyCacheEvict<K,V> evict = context.cache().evict();
-
+        IMyCacheEvict<K, V> evict = context.cache().evict();
         Method method = context.method();
         final K key = (K) context.params()[0];
-        if("remove".equals(method.getName())) {
+        if ("remove".equals(method.getName())) {
             evict.removeKey(key);
         } else {
             evict.updateKey(key);

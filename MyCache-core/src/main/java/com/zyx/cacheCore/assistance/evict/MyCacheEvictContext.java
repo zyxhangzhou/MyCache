@@ -8,7 +8,7 @@ import com.zyx.cacheCore.core.MyCache;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/4 16:13
- * @Description
+ * @Description 驱逐策略上下文
  */
 
 public class MyCacheEvictContext<K, V> implements IMyCacheEvictContext<K, V> {

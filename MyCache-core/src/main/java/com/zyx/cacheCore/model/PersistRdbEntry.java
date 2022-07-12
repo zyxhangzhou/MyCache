@@ -3,14 +3,25 @@ package com.zyx.cacheCore.model;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/8 17:47
- * @Description 持久化的存储对
+ * @Description RDB持久化的存储对
  */
 public class PersistRdbEntry<K, V> {
     public PersistRdbEntry() {
     }
 
+    /**
+     * 键
+     */
     private K key;
+
+    /**
+     * 值
+     */
     private V value;
+
+    /**
+     * 过期时间
+     */
     private Long expire;
 
     public K getKey() {

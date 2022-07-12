@@ -5,7 +5,7 @@ import com.zyx.cacheApi.api.IMyCachePersist;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/8 20:11
- * @Description
+ * @Description 所有的持久化策略
  */
 public class MyCachePersists {
     private MyCachePersists() {

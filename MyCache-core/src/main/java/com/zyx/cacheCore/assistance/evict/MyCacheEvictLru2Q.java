@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 21:19
- * @Description
+ * @Description 实现2Q版的LRU
  */
 @Slf4j
 public class MyCacheEvictLru2Q<K, V> extends AbstractMyCacheEvict<K, V> {

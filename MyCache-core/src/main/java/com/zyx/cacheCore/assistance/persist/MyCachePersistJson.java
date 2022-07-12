@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/8 17:26
- * @Description
+ * @Description JSON模式的持久化
  */
 public class MyCachePersistJson<K, V> extends MyCachePersistAdaptor<K, V> {
 
@@ -60,6 +60,7 @@ public class MyCachePersistJson<K, V> extends MyCachePersistAdaptor<K, V> {
 
     /**
      * 立即执行：0
+     *
      * @return long
      */
     @Override
@@ -69,6 +70,7 @@ public class MyCachePersistJson<K, V> extends MyCachePersistAdaptor<K, V> {
 
     /**
      * 执行之后每隔多长时间执行一下
+     *
      * @return long
      */
     @Override

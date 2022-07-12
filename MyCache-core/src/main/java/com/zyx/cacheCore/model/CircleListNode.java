@@ -5,9 +5,10 @@ import java.util.StringJoiner;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/12 13:57
- * @Description
+ * @Description 循环链表节点
  */
 public class CircleListNode<K, V> {
+
     /**
      * 键
      */

@@ -1,7 +1,5 @@
 package com.zyx.cacheCore.assistance.evict;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheApi.api.IMyCacheEntry;
 import com.zyx.cacheApi.api.IMyCacheEvictContext;
@@ -118,7 +116,7 @@ public class MyCacheEvictLfu<K, V> extends AbstractMyCacheEvict<K, V> {
     }
 
     /**
-     * 加入到频率 MAP
+     * 加入至频率 MAP
      *
      * @param frequency 频率
      * @param freqNode  节点

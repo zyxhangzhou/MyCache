@@ -3,7 +3,7 @@ package com.zyx.cacheCore.assistance.util;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/4 17:19
- * @Description
+ * @Description 参数校验工具类
  */
 public final class ArgumentUtils {
     private ArgumentUtils() {
@@ -14,7 +14,7 @@ public final class ArgumentUtils {
             throw new IllegalArgumentException(name + " can not be null!");
         }
     }
-    public static void requirePositve(int number, String name) {
+    public static void requireNonNegative(int number, String name) {
         if (number < 0) {
             throw new IllegalArgumentException(name + " must be >= 0!");
         }

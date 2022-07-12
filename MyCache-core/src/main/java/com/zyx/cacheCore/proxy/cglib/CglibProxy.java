@@ -18,6 +18,9 @@ import java.lang.reflect.Method;
  */
 public class CglibProxy implements IMyCacheProxy, MethodInterceptor {
 
+    /**
+     * 被代理的对象
+     */
     private final IMyCache target;
 
     public CglibProxy(IMyCache target) {

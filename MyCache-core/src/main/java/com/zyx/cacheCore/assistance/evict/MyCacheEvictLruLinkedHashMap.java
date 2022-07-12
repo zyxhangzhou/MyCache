@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 16:42
- * @Description
+ * @Description LRU 通过继承 LinkHashMap 实现
  */
 @Slf4j
 public class MyCacheEvictLruLinkedHashMap<K, V> extends LinkedHashMap<K, V> implements IMyCacheEvict<K, V> {

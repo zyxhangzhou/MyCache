@@ -11,7 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 23:36
- * @Description 实现方式LRU2 <a href="http://www.cs.cmu.edu/~christos/courses/721-resources/p297-o_neil.pdf">LRU-2</a>
+ * @Description 实现LRU-2
+ * <a href="http://www.cs.cmu.edu/~christos/courses/721-resources/p297-o_neil.pdf">LRU-2</a>
  */
 @Slf4j
 public class MyCacheEvictLru2<K, V> extends AbstractMyCacheEvict<K, V> {

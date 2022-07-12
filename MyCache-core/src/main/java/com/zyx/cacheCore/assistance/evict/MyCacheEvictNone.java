@@ -6,9 +6,9 @@ import com.zyx.cacheApi.api.IMyCacheEvictContext;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 14:53
- * @Description
+ * @Description 驱逐策略-无操作
  */
-public class MyCacheEvictNone<K,V> extends AbstractMyCacheEvict<K,V> {
+public class MyCacheEvictNone<K, V> extends AbstractMyCacheEvict<K, V> {
     @Override
     protected IMyCacheEntry<K, V> doEvict(IMyCacheEvictContext<K, V> context) {
         return null;

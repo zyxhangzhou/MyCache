@@ -6,8 +6,10 @@ package com.zyx.cacheApi.api;
  * @Description 缓存代理接口
  */
 public interface IMyCacheProxy {
+
     /**
      * 获取代理实现
+     *
      * @return 代理
      */
     Object proxy();

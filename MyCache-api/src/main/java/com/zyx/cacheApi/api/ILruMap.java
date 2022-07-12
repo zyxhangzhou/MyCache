@@ -3,7 +3,7 @@ package com.zyx.cacheApi.api;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/11 23:26
- * @Description
+ * @Description 封装好的LRU-map
  */
 public interface ILruMap<K, V> {
     /**

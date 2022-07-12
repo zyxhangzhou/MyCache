@@ -13,7 +13,7 @@ import java.lang.reflect.Proxy;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/10 13:45
- * @Description
+ * @Description 动态代理
  */
 public class DynamicProxy implements InvocationHandler, IMyCacheProxy {
 
@@ -25,7 +25,7 @@ public class DynamicProxy implements InvocationHandler, IMyCacheProxy {
 
     @Override
     public Object proxy() {
-        // 我们要代理哪个真实对象，就将该对象传进去，最后是通过该真实对象来调用其方法的
+        // 要代理哪个真实对象，就将该对象传进去，最后是通过该真实对象来调用其方法的
         InvocationHandler handler = new DynamicProxy(target);
 
         return Proxy.newProxyInstance(handler.getClass().getClassLoader(),

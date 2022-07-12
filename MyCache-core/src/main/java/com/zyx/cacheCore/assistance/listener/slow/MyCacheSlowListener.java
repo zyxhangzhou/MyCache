@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 15:50
- * @Description
+ * @Description 慢操作监听类
  */
 @Slf4j
 public class MyCacheSlowListener implements IMyCacheSlowListener {

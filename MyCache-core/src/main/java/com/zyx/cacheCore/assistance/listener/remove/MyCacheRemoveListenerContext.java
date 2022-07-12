@@ -5,7 +5,7 @@ import com.zyx.cacheApi.api.IMyCacheRemoveListenerContext;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/9 14:45
- * @Description
+ * @Description 删除的监听类上下文
  */
 public class MyCacheRemoveListenerContext<K, V> implements IMyCacheRemoveListenerContext<K, V> {
 
@@ -13,6 +13,11 @@ public class MyCacheRemoveListenerContext<K, V> implements IMyCacheRemoveListene
 
     private V value;
 
+    /**
+     * 删除的类型
+     * ① evict
+     * ② expire
+     */
     private String type;
 
     private MyCacheRemoveListenerContext() {}

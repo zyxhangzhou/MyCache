@@ -18,17 +18,28 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author Zhang Yuxiao
  * @Date 2022/7/6 21:04
- * @Description
+ * @Description 缓存过期策略
  */
 public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
 
+    /**
+     * 单次清空的数量限制
+     */
     private static final int LIMIT = 120;
 
-    //过期的map
+    /**
+     * 过期的map
+     */
     private final Map<K, Long> expireMap = new HashMap<>();
 
+    /**
+     * 缓存实现
+     */
     private final IMyCache<K, V> cache;
 
+    /**
+     * 定时任务
+     */
     private static final ScheduledExecutorService EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
 
     public MyCacheExpire(IMyCache<K, V> cache) {
@@ -36,6 +47,9 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
         this.init();
     }
 
+    /**
+     * 初始化任务
+     */
     private void init() {
         EXECUTOR_SERVICE.scheduleAtFixedRate(() -> {
             if (MapUtil.isEmpty(expireMap)) return;
@@ -49,8 +63,7 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
     }
 
     private void expireKey(final K key, final Long expireAt) {
-//        final K key = entry.getKey();
-//        final Long expireAt = entry.getValue();
+        if (expireAt == null) return;
         // 删除的逻辑处理
         long currentTime = System.currentTimeMillis();
         if (currentTime >= expireAt) {
@@ -61,9 +74,6 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
             IMyCacheRemoveListenerContext<K, V> context = MyCacheRemoveListenerContext.<K, V>newInstance()
                     .key(key).value(removedValue)
                     .type(MyCacheRemoveType.EXPIRE.code());
-//            for (IMyCacheRemoveListener<K, V> listener : cache.removeListeners()) {
-//                listener.listen(context);
-//            }
             cache.removeListeners().forEach(listener -> listener.listen(context));
         }
     }
@@ -80,13 +90,9 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
         if (CollectionUtils.isEmpty(keyList)) return;
         // 判断大小，小的作为外循环。一般都是过期的 keys 比较小。
         if (keyList.size() <= expireMap.size()) {
-            for (K key : keyList) {
-                this.expireKey(key, expireMap.get(key));
-            }
+            keyList.forEach(key -> this.expireKey(key, expireMap.get(key)));
         } else {
-            for (Map.Entry<K, Long> entry : expireMap.entrySet()) {
-                this.expireKey(entry.getKey(), entry.getValue());
-            }
+            expireMap.forEach(this::expireKey);
         }
     }
 
