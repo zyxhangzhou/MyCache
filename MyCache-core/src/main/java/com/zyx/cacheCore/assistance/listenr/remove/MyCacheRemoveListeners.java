@@ -1,4 +1,4 @@
-package com.zyx.cacheCore.assistance.listener.remove;
+package com.zyx.cacheCore.assistance.listenr.remove;
 
 import com.zyx.cacheApi.api.IMyCacheRemoveListener;
 

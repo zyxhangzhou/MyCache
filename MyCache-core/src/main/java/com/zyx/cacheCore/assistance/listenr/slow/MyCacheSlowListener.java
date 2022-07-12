@@ -1,4 +1,4 @@
-package com.zyx.cacheCore.assistance.listener.slow;
+package com.zyx.cacheCore.assistance.listenr.slow;
 
 import com.alibaba.fastjson.JSON;
 import com.zyx.cacheApi.api.IMyCacheSlowListener;

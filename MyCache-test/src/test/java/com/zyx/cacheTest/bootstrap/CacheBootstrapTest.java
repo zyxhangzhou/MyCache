@@ -1,13 +1,10 @@
 package com.zyx.cacheTest.bootstrap;
 
-import com.alibaba.fastjson.JSON;
 import com.zyx.cacheApi.api.IMyCache;
 import com.zyx.cacheCore.assistance.evict.MyCacheEvicts;
-import com.zyx.cacheCore.assistance.listener.remove.MyCacheRemoveListener;
 import com.zyx.cacheCore.assistance.load.MyCacheLoads;
 import com.zyx.cacheCore.assistance.persist.MyCachePersists;
 import com.zyx.cacheCore.bootstrap.MyCacheBootstrap;
-import com.zyx.cacheCore.model.PersistAofEntry;
 import com.zyx.cacheTest.listenr.MyRemoveListener;
 import com.zyx.cacheTest.listenr.MySlowListener;
 import com.zyx.cacheTest.load.MyCacheLoad;
