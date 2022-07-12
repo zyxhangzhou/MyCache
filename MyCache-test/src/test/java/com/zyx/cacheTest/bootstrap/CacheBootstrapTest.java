@@ -156,14 +156,6 @@ public class CacheBootstrapTest {
         map.put(1, "1");
         map.put(2, "2");
         map.put(3, "3");
-//        Iterator<Map.Entry<Integer, String>> iterator = map.entrySet().iterator();
-//        while (iterator.hasNext()) {
-//            Map.Entry<Integer, String> entry = iterator.next();
-//            if (entry.getKey() == 2) {
-//                iterator.remove();
-//            }
-//            System.out.println(map);
-//        }
         for (Map.Entry<Integer, String> entry : map.entrySet()) {
 
             if (entry.getKey() == 3) {
