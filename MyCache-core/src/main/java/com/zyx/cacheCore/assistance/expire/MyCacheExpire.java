@@ -90,9 +90,14 @@ public class MyCacheExpire<K, V> implements IMyCacheExpire<K, V> {
         if (CollectionUtils.isEmpty(keyList)) return;
         // 判断大小，小的作为外循环。一般都是过期的 keys 比较小。
         if (keyList.size() <= expireMap.size()) {
-            keyList.forEach(key -> this.expireKey(key, expireMap.get(key)));
+            for(K key : keyList) {
+                Long expireAt = expireMap.get(key);
+                expireKey(key, expireAt);
+            }
         } else {
-            expireMap.forEach(this::expireKey);
+            for(var entry : expireMap.entrySet()) {
+                this.expireKey(entry.getKey(), entry.getValue());
+            }
         }
     }
 

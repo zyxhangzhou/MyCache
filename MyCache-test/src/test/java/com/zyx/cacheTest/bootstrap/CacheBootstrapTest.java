@@ -22,17 +22,17 @@ import java.util.concurrent.TimeUnit;
 public class CacheBootstrapTest {
 
     @Test
-    public void MainTest() {
+    public void MainTest() throws InterruptedException {
         IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
                 .size(3)
                 .build();
         cache.put("a", "a");
         cache.put("b", "b");
-        cache.put("c", "c");
-        cache.put("d", "d");
-
-        Assert.assertEquals(3, cache.size());
-        System.out.println(cache.entrySet());
+        cache.expire("a", 10);
+        Assert.assertEquals(2, cache.size());
+        TimeUnit.MILLISECONDS.sleep(11);
+        Assert.assertEquals(1, cache.size());
+        System.out.println(cache.keySet());
     }
 
     @Test
@@ -71,7 +71,6 @@ public class CacheBootstrapTest {
         IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
                 .size(2)
                 .addRemoveListener(new MyRemoveListener<>())
-//                .addRemoveListener(new MyCacheRemoveListener<>())
                 .build();
         cache.put("math", "98");
         cache.put("reading", "90");
@@ -91,7 +90,8 @@ public class CacheBootstrapTest {
     @Test
     public void persistAofTest() throws InterruptedException {
         IMyCache<String, String> cache = MyCacheBootstrap.<String, String>newInstance()
-                .persist(MyCachePersists.aof("1.aof"))
+                .persist(MyCachePersists.json("1.rdb"))
+                //.persist(MyCachePersists.aof("1.aof"))
                 .build();
 
         cache.put("x", "x");
